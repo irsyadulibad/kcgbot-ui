@@ -31,7 +31,9 @@ const items = ref<NavigationMenuItem[][]>([
 </script>
 
 <template>
-  <aside class="min-h-screen w-64 border-r p-4 dark:border-gray-700">
+  <aside
+    class="bg-muted sticky top-0 min-h-screen w-64 border-r p-4 dark:border-gray-700"
+  >
     <div class="flex items-center justify-center gap-3 py-2">
       <Icon name="emojione:cat-face-with-wry-smile" size="28" />
       <h3 class="text-xl font-semibold">KCG Bot UI</h3>
