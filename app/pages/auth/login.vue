@@ -55,7 +55,7 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
         class="space-y-4"
         @submit="onSubmit"
       >
-        <div class="w-full space-y-3 text-">
+        <div class="text- w-full space-y-3">
           <UFormField label="Username" name="username">
             <UInput class="w-full" v-model="form.username" />
           </UFormField>
