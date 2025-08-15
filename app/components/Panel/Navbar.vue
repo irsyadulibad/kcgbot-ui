@@ -21,10 +21,14 @@ const profileItems = ref<DropdownMenuItem[][]>([
 
 <template>
   <header
-    class="bg-default/50 sticky top-0 flex items-center justify-between px-6 py-4 backdrop-blur-lg"
+    class="sticky top-0 z-50 flex items-center justify-between border-b border-gray-600 bg-gradient-to-bl from-gray-600/50 via-gray-500/20 to-transparent px-6 py-4 backdrop-blur-lg"
   >
     <UButton variant="ghost" class="cursor-pointer p-0">
-      <UIcon class="text-white" size="22" name="tabler:layout-sidebar" />
+      <UIcon
+        class="text-white"
+        size="22"
+        name="tabler:layout-sidebar"
+      />
     </UButton>
 
     <div class="flex">

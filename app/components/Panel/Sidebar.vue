@@ -18,6 +18,20 @@ const items = ref<NavigationMenuItem[][]>([
       to: "/",
     },
     {
+      label: "Essentials",
+      type: "label",
+    },
+    {
+      label: "Welcome & Leave",
+      icon: "tabler:hand-click",
+      to: "/essentials/welcome-leave",
+    },
+    {
+      label: "Presence",
+      icon: "tabler:user-check",
+      to: "/presence",
+    },
+    {
       label: "Handlers",
       type: "label",
     },
