@@ -49,7 +49,7 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
           </p>
         </div>
       </div>
-      <Uform
+      <UForm
         :schema="formSchema"
         :state="form"
         class="space-y-4"
@@ -74,7 +74,7 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
           class="flex w-full items-center justify-center"
           >Login</UButton
         >
-      </Uform>
+      </UForm>
     </div>
     <p class="text-sm text-gray-200">
       Developed by Two Villains

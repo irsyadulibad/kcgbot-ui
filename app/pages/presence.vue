@@ -32,16 +32,7 @@
         </div>
 
         <div class="flex items-center space-x-4">
-          <UCheckbox label="Show online status" />
-          <UCheckbox label="Show typing indicator" />
           <UCheckbox label="Show activity status" />
-        </div>
-
-        <div>
-          <label class="mb-2 block text-sm font-medium"
-            >Auto-away after (minutes)</label
-          >
-          <UInput type="number" placeholder="30" class="w-32" />
         </div>
       </div>
     </div>
