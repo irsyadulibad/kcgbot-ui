@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import * as v from "valibot";
+import * as z from "zod";
+
 import type { FormSubmitEvent } from "@nuxt/ui";
-type schema = v.InferOutput<typeof formSchema>;
+type schema = z.output<typeof formSchema>;
 
 const form = reactive({
   username: "",
   password: "",
 });
 
-const formSchema = v.object({
-  username: v.string(),
-  password: v.pipe(
-    v.string(),
-    v.minLength(8, "Password must be at least 8 characters")
-  ),
+const formSchema = z.object({
+  username: z.string(),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters"),
 });
 
 const toast = useToast();
@@ -38,7 +38,7 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
           <Icon
             name="emojione:cat-face-with-wry-smile"
             size="50"
-            class="animate-"
+            class="animate-bounce"
           />
           <h1 class="text-3xl font-bold tracking-tighter">
             Login
@@ -53,10 +53,25 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
         :schema="formSchema"
         :state="form"
         class="space-y-4"
+        @submit="onSubmit"
       >
-        <div class="w-full space-y-2"></div>
+        <div class="w-full space-y-3 text-">
+          <UFormField label="Username" name="username">
+            <UInput class="w-full" v-model="form.username" />
+          </UFormField>
 
-        <UButton class="flex w-full items-center justify-center"
+          <UFormField label="Password" name="password">
+            <UInput
+              class="w-full"
+              v-model="form.password"
+              type="password"
+            />
+          </UFormField>
+        </div>
+
+        <UButton
+          type="submit"
+          class="flex w-full items-center justify-center"
           >Login</UButton
         >
       </Uform>
