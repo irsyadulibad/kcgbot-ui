@@ -1,13 +1,7 @@
-<script setup lang="ts">
-// Presence page functionality
-</script>
-
 <template>
   <div class="space-y-4">
     <div>
-      <h2 class="text-sm font-medium text-gray-400">
-        Essentials
-      </h2>
+      <h2 class="text-sm font-medium text-gray-400">Essentials</h2>
       <h1 class="text-2xl font-bold">Presence</h1>
     </div>
 
@@ -21,9 +15,7 @@
 
       <div class="space-y-4">
         <div>
-          <label class="mb-2 block text-sm font-medium"
-            >Status Message</label
-          >
+          <label class="mb-2 block text-sm font-medium">Status Message</label>
           <UTextarea
             placeholder="Enter your status message..."
             class="w-full"
@@ -42,7 +34,7 @@
     >
       <h3 class="text-lg font-semibold">Current Status</h3>
       <div class="flex items-center space-x-3">
-        <div class="h-3 w-3 rounded-full bg-green-500"></div>
+        <div class="h-3 w-3 rounded-full bg-green-500" />
         <span>Online</span>
         <span class="text-gray-400">• Last seen: Just now</span>
       </div>
