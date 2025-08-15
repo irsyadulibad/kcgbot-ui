@@ -44,8 +44,8 @@ async function onSubmit(event: FormSubmitEvent<schema>) {
             Login
           </h1>
           <p class="text-neutral-500">
-            Welcome to kcg bot management to continue, nor...i
-            mean my lord.
+            Welcome to kcg bot management, login to continue,
+            nor...i mean my lord.
           </p>
         </div>
       </div>

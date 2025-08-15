@@ -1,5 +1,14 @@
 <script setup lang="ts">
-// Presence page functionality
+const items = ref<string[]>([
+  "Playing",
+  "Listening",
+  "Watching",
+  "Custom",
+  "Streaming",
+  "Competing",
+]);
+const value = ref("Listening");
+const statusName = ref("normies people");
 </script>
 
 <template>
@@ -19,21 +28,39 @@
         <UButton>Save Settings</UButton>
       </div>
 
-      <div class="space-y-4">
-        <div>
-          <label class="mb-2 block text-sm font-medium"
-            >Status Message</label
+      <div
+        class="flex max-w-5xl items-center justify-center gap-4"
+      >
+        <div class="w-full flex-auto space-y-3">
+          <label class="block text-sm font-medium"
+            >Activity</label
           >
-          <UTextarea
-            placeholder="Enter your status message..."
+          <USelect
+            v-model="value"
+            :items="items"
             class="w-full"
-            rows="3"
           />
         </div>
-
-        <div class="flex items-center space-x-4">
-          <UCheckbox label="Show activity status" />
+        <div
+          class="mt-5 flex w-10 flex-none items-center justify-center p-4 text-center text-lg text-gray-400"
+        >
+          to
         </div>
+        <div class="w-full flex-auto space-y-3">
+          <label class="block text-sm font-medium"
+            >Status Name</label
+          >
+          <UInput
+            v-model="statusName"
+            type="text"
+            placeholder="Enter your status name..."
+            class="w-full"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <UCheckbox label="Show activity status" />
       </div>
     </div>
 
