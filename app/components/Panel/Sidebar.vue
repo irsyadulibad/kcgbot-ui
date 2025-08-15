@@ -48,27 +48,20 @@ const items = ref<NavigationMenuItem[][]>([
   <aside
     class="bg-muted sticky top-0 min-h-screen w-64 border-r p-4 dark:border-gray-700"
   >
-    <div
-      class="flex flex-col items-center justify-center gap-3 py-2"
-    >
+    <div class="flex flex-col items-center justify-center gap-3 py-2">
       <div class="flex items-center gap-3 rounded-md">
-        <Icon
-          name="emojione:cat-face-with-wry-smile"
-          size="28"
-        />
+        <Icon name="emojione:cat-face-with-wry-smile" size="28" />
         <h3 class="text-xl font-semibold">KCG Bot UI</h3>
       </div>
 
       <div
         class="flex items-center space-x-3 rounded-md border border-gray-800 px-1"
       >
-        <div
-          class="rounded-md bg-gray-800 px-4 py-1 text-sm font-medium"
-        >
+        <div class="rounded-md bg-gray-800 px-4 py-1 text-sm font-medium">
           Status
         </div>
         <div class="flex items-center gap-2 px-4 py-1">
-          <div class="h-3 w-3 rounded-full bg-green-500"></div>
+          <div class="h-3 w-3 rounded-full bg-green-500" />
           <span>Online</span>
         </div>
       </div>
