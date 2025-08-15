@@ -1,8 +1,30 @@
 <script lang="ts" setup>
-const form = useForm({
+import * as v from "valibot";
+import type { FormSubmitEvent } from "@nuxt/ui";
+type schema = v.InferOutput<typeof formSchema>;
+
+const form = reactive({
   username: "",
   password: "",
 });
+
+const formSchema = v.object({
+  username: v.string(),
+  password: v.pipe(
+    v.string(),
+    v.minLength(8, "Password must be at least 8 characters")
+  ),
+});
+
+const toast = useToast();
+async function onSubmit(event: FormSubmitEvent<schema>) {
+  toast.add({
+    title: "Success",
+    description: "The form has been submitted.",
+    color: "success",
+  });
+  console.log(event.data);
+}
 </script>
 <template>
   <div
@@ -27,35 +49,17 @@ const form = useForm({
           </p>
         </div>
       </div>
-      <form action="" class="space-y-4">
-        <div class="w-full space-y-2">
-          <p>Username</p>
-          <input
-            type="text"
-            class="w-full rounded-md border border-gray-800 px-2 py-1 outline-none focus:bg-gray-800"
-            placeholder=""
-            name="username"
-            v-model="form.username"
-          />
-        </div>
-        <div class="w-full space-y-2">
-          <div class="flex items-center justify-between">
-            <p>Password</p>
-            <p class="text-sm text-gray-400">Forgot password?</p>
-          </div>
-          <input
-            type="password"
-            class="w-full rounded-md border border-gray-800 px-2 py-1 outline-none focus:bg-gray-800"
-            placeholder=""
-            name="password"
-            v-model="form.password"
-          />
-        </div>
+      <Uform
+        :schema="formSchema"
+        :state="form"
+        class="space-y-4"
+      >
+        <div class="w-full space-y-2"></div>
 
         <UButton class="flex w-full items-center justify-center"
           >Login</UButton
         >
-      </form>
+      </Uform>
     </div>
     <p class="text-sm text-gray-200">
       Developed by Two Villains
