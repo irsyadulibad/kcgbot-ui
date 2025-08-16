@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import type { Log } from "@/types/log";
 
-const { fetch, pending } = useApi();
+const { fetch } = useApi();
+const { isConnected, subscribe } = useSocket("logger");
+
 const logs = ref<Log[]>([]);
 
 const loggerFetch = async () => {
   const res = await fetch<Log[]>("/logs");
   logs.value = res?.data ?? [];
 };
+
+subscribe("log", async () => {
+  await loggerFetch();
+});
 
 onMounted(async () => {
   await loggerFetch();
@@ -19,6 +25,7 @@ onMounted(async () => {
     <div>
       <h2 class="text-sm font-medium text-gray-400">Overview</h2>
       <h1 class="text-2xl font-bold">Dashboard</h1>
+      <h2>{{ isConnected ? "Connected" : "Disconnected" }}</h2>
     </div>
     <div class="grid grid-cols-5 gap-4">
       <DashCard />
@@ -35,21 +42,9 @@ onMounted(async () => {
         <UButton>Clear log</UButton>
       </div>
       <div
-        :class="
-          pending
-            ? 'flex min-h-[50rem] w-full flex-col items-center justify-center bg-gray-800 transition-all'
-            : 'bg-default flex min-h-[50rem] w-full flex-col justify-start'
-        "
-        class="rounded-md border border-gray-500 p-4"
+        class="bg-default flex min-h-[50rem] w-full flex-col justify-start rounded-md border border-gray-500 p-4"
       >
-        <div
-          v-if="pending"
-          class="flex flex-col items-center justify-center space-y-4 text-center"
-        >
-          <Icon name="tabler:loader-2" size="50" class="animate-spin" />
-          <span>Retrieving logs...</span>
-        </div>
-        <div v-for="(item, index) in logs" :key="index" class="space-y-1">
+        <div v-for="(item, index) in logs" :key="index" class="space-y-3">
           <span
             :class="
               item.type === 'INFO'
