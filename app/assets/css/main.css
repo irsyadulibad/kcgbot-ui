@@ -5,6 +5,7 @@
 
 @theme {
   --font-sans: "Onest", sans-serif;
+  --font-logs: "Consolas", monospace;
 }
 
 .dark {

@@ -18,6 +18,15 @@ const items = ref<NavigationMenuItem[][]>([
       to: "/",
     },
     {
+      label: "Guilds",
+      type: "label",
+    },
+    {
+      label: "Members",
+      icon: "tabler:users",
+      to: "/guilds/members",
+    },
+    {
       label: "Essentials",
       type: "label",
     },
