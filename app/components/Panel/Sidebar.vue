@@ -45,9 +45,9 @@ const items = ref<NavigationMenuItem[][]>([
       type: "label",
     },
     {
-      label: "Bandwords",
+      label: "Banwords",
       icon: "tabler:align-box-left-bottom-filled",
-      to: "/handlers/bandwords",
+      to: "/handlers/banwords",
     },
   ],
 ]);

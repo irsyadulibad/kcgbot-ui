@@ -2,7 +2,6 @@
 import type { Log } from "@/types/log";
 
 const { fetch, pending } = useApi();
-
 const logs = ref<Log[]>([]);
 
 const loggerFetch = async () => {
@@ -43,13 +42,14 @@ onMounted(async () => {
         "
         class="rounded-md border border-gray-500 p-4"
       >
-        <div v-if="pending">
-          class="flex flex-col items-center justify-center space-y-4
-          text-center"
+        <div
+          v-if="pending"
+          class="flex flex-col items-center justify-center space-y-4 text-center"
+        >
           <Icon name="tabler:loader-2" size="50" class="animate-spin" />
           <span>Retrieving logs...</span>
         </div>
-        <div v-for="(item, index) in logs" :key="index" class="space-y-3">
+        <div v-for="(item, index) in logs" :key="index" class="space-y-1">
           <span
             :class="
               item.type === 'INFO'

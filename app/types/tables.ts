@@ -7,3 +7,10 @@ export type Member = {
   existed: string;
   joinedAt: string;
 };
+
+export type Banword = {
+  no: number;
+  word: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

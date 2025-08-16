@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "nuxt-auth-utils",
     "@pinia/nuxt",
+    "nuxt-time",
   ],
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
