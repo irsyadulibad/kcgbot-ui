@@ -44,24 +44,28 @@ onMounted(async () => {
       <div
         class="bg-default flex min-h-[50rem] w-full flex-col justify-start rounded-md border border-gray-500 p-4"
       >
-        <div v-for="(item, index) in logs" :key="index" class="space-y-3">
-          <span
+        <div v-for="(item, index) in logs" :key="index" class="space-y-5">
+          <div
             :class="
               item.type === 'INFO'
-                ? 'text-blue-400'
+                ? 'border-blue-500 bg-blue-500/10 text-blue-500'
                 : item.type === 'ERROR'
-                  ? 'text-red-400'
+                  ? 'border-red-500 bg-red-500/10 text-red-500'
                   : item.type === 'WARNING'
-                    ? 'text-yellow-400'
-                    : 'text-green-500'
+                    ? 'border-yellow-500 bg-yellow-500/10 text-yellow-500'
+                    : 'border-green-500 bg-green-500/10 text-green-500'
             "
+            class="mb-2 flex flex-row justify-start gap-4 border-l-4 px-3"
           >
-            {{ `[${index + 1}]` }}
-            {{ item.type }}
-            {{ item.content }}
-            {{ item.context }}
-            {{ item.createdAt }}
-          </span>
+            <span class="text-gray-300">
+              {{ item.createdAt }}
+            </span>
+            <span> [{{ item.type }}] </span>
+            <span class="uppercase">
+              <b> {{ item.context }}</b>
+            </span>
+            <span>{{ item.content }}</span>
+          </div>
         </div>
       </div>
     </div>
