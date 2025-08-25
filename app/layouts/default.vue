@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useAuthStore } from "~/store/auth";
+
+const { fetchProfile } = useAuthStore();
 const route = useRoute();
 const toggle = ref(false);
 
@@ -6,7 +9,9 @@ const toggleSidebar = () => {
   toggle.value = !toggle.value;
 };
 
-
+onMounted(() => {
+  fetchProfile();
+});
 </script>
 
 <template>

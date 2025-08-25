@@ -6,6 +6,10 @@ export default defineEventHandler(async (event) => {
     public: { apiBaseUrl },
   } = useRuntimeConfig();
 
+  const userAgent = getHeader(event, "user-agent");
+  const clientIp =
+    getHeader(event, "x-forwarded-for") || getHeader(event, "remote-addr");
+
   const credentials = await readBody<{
     username: string;
     password: string;
@@ -15,6 +19,10 @@ export default defineEventHandler(async (event) => {
     const response = await $fetch<ApiResponse<{ access_token: string }>>(
       `${apiBaseUrl}/auth/login`,
       {
+        headers: {
+          "User-Agent": userAgent || "Nuxt Server",
+          "X-Client-IP": clientIp || "unknown",
+        },
         method: "POST",
         body: credentials,
       }
