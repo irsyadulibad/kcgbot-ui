@@ -1,5 +1,22 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
+import type { Status } from "@/types/status";
+
+defineProps<{
+  open: boolean;
+}>();
+
+const { fetch } = useApi();
+const status = ref<Status>();
+
+const fetchStats = async () => {
+  const res = await fetch<Status>("/bot/status");
+  status.value = res?.data ?? undefined;
+};
+
+onMounted(async () => {
+  await fetchStats();
+});
 
 const items = ref<NavigationMenuItem[][]>([
   [
@@ -49,41 +66,43 @@ const items = ref<NavigationMenuItem[][]>([
       icon: "tabler:align-box-left-bottom-filled",
       to: "/handlers/banwords",
     },
+    {
+      label: "Management",
+      type: "label",
+    },
+    {
+      label: "Users",
+      icon: "tabler:user",
+      to: "/management/users",
+    },
   ],
 ]);
 </script>
 
 <template>
   <aside
-    class="bg-muted sticky top-0 min-h-screen w-64 border-r p-4 dark:border-gray-700"
+    :class="open ? 'block' : 'hidden lg:block'"
+    class="bg-muted fixed top-0 z-[999] h-full w-64 border-r p-4 lg:sticky dark:border-gray-700"
   >
-    <div class="flex flex-col items-center justify-center gap-3 py-2">
-      <div class="flex items-center gap-3 rounded-md">
-        <Icon name="emojione:cat-face-with-wry-smile" size="28" />
-        <h3 class="text-xl font-semibold">KCG Bot UI</h3>
+    <div class="relative h-screen">
+      <div class="flex flex-col items-center justify-center gap-3 py-2">
+        <div class="flex items-center gap-3 rounded-md">
+          <Icon name="emojione:cat-face-with-wry-smile" size="28" />
+          <h3 class="text-xl font-semibold">KCG Bot UI</h3>
+        </div>
+        <BotStatus :status="status" />
       </div>
 
-      <div
-        class="flex items-center space-x-3 rounded-md border border-gray-800 px-1"
-      >
-        <div class="rounded-md bg-gray-800 px-4 py-1 text-sm font-medium">
-          Status
-        </div>
-        <div class="flex items-center gap-2 px-4 py-1">
-          <div class="h-3 w-3 rounded-full bg-green-500" />
-          <span>Online</span>
-        </div>
-      </div>
+      <UNavigationMenu
+        orientation="vertical"
+        :items="items"
+        :ui="{
+          root: 'space-y-2 h-full',
+          label: 'mt-5',
+          link: 'py-3',
+        }"
+      />
+      <BotUptime :status="status" />
     </div>
-
-    <UNavigationMenu
-      orientation="vertical"
-      :items="items"
-      :ui="{
-        root: 'min-h-screen',
-        label: 'mt-5',
-        link: 'py-3',
-      }"
-    />
   </aside>
 </template>

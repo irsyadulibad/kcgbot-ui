@@ -1,13 +1,27 @@
 <script setup lang="ts">
 const route = useRoute();
+const toggle = ref(false);
+
+const toggleSidebar = () => {
+  toggle.value = !toggle.value;
+};
+
+
 </script>
 
 <template>
-  <main class="flex h-screen overflow-y-auto">
-    <PanelSidebar v-if="route.name !== 'auth-login'" />
-    <div class="flex-1">
-      <PanelNavbar v-if="route.name !== 'auth-login'" />
-      <div class="px-6 py-4">
+  <main class="box-border flex h-screen w-full overflow-y-auto">
+    <PanelSidebar
+      :open="toggle"
+      @focusout="toggleSidebar"
+      v-if="route.name !== 'auth-login'"
+    />
+    <div class="box-border w-full flex-1">
+      <PanelNavbar
+        @toggleSidebar="toggleSidebar"
+        v-if="route.name !== 'auth-login'"
+      />
+      <div class="box-border px-2 py-4 lg:px-6">
         <slot />
       </div>
     </div>

@@ -8,7 +8,7 @@ const items = ref<string[]>([
   "Competing",
 ]);
 const value = ref("Listening");
-const statusName = ref("normies people");
+const statusName = ref("to normies people");
 </script>
 
 <template>
@@ -26,28 +26,14 @@ const statusName = ref("normies people");
         <UButton>Save Settings</UButton>
       </div>
 
-      <div
-        class="flex max-w-5xl items-center justify-center gap-4"
-      >
+      <div class="flex max-w-5xl items-center justify-center gap-4">
         <div class="w-full flex-auto space-y-3">
-          <label class="block text-sm font-medium"
-            >Activity</label
-          >
-          <USelect
-            v-model="value"
-            :items="items"
-            class="w-full"
-          />
+          <label class="block text-sm font-medium">Activity</label>
+          <USelect v-model="value" :items="items" class="w-full" />
         </div>
-        <div
-          class="mt-5 flex w-10 flex-none items-center justify-center p-4 text-center text-lg text-gray-400"
-        >
-          to
-        </div>
+
         <div class="w-full flex-auto space-y-3">
-          <label class="block text-sm font-medium"
-            >Status Name</label
-          >
+          <label class="block text-sm font-medium">Status Name</label>
           <UInput
             v-model="statusName"
             type="text"
@@ -58,7 +44,7 @@ const statusName = ref("normies people");
       </div>
 
       <div class="flex items-center space-x-4">
-        <UCheckbox label="Show activity status" />
+        <UCheckbox label="Show activity status" class="cursor-pointer" />
       </div>
     </div>
 

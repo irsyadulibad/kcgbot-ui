@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  ssr: false,
   modules: [
     "@nuxt/eslint",
     "@nuxt/image",
@@ -9,6 +10,7 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@pinia/nuxt",
     "nuxt-time",
+    "@vueuse/nuxt",
   ],
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
