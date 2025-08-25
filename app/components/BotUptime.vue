@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const currentUptime = ref<string>("Loading...");
 const serverStartTime = ref<number>(0);
+const intervalId = ref<NodeJS.Timeout | null>(null);
 
 dayjs.extend(relativeTime);
 
@@ -21,38 +22,43 @@ const formatDuration = (duration: number) => {
   return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
-watchEffect(() => {
-  if (props.status?.uptime) {
-    serverStartTime.value = Date.now() - props.status.uptime;
-
-    updateUptimeDisplay();
-
-    const interval = setInterval(() => {
-      updateUptimeDisplay();
-    }, 1000);
-
-    onUnmounted(() => {
-      clearInterval(interval);
-    });
-  }
-});
-
 const updateUptimeDisplay = () => {
   if (serverStartTime.value) {
     const currentUptimeMs = Date.now() - serverStartTime.value;
     currentUptime.value = formatDuration(currentUptimeMs);
   }
 };
+
+watchEffect(() => {
+  if (props.status?.uptime) {
+    if (intervalId.value) {
+      clearInterval(intervalId.value);
+    }
+
+    serverStartTime.value = Date.now() - props.status.uptime;
+    updateUptimeDisplay();
+
+    intervalId.value = setInterval(() => {
+      updateUptimeDisplay();
+    }, 1000);
+  }
+});
+
+onUnmounted(() => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+  }
+});
 </script>
 
 <template>
   <div
     class="absolute bottom-10 flex w-full flex-col items-start justify-start gap-2 rounded-md bg-gray-800 px-3 py-2 text-white"
   >
-    <p class="text-lg text-gray-400">Bot uptime</p>
+    <p class="text-sm text-gray-400">Bot uptime</p>
     <div class="flex items-center justify-between gap-2">
       <Icon name="mdi:clock" class="text-gray-400" size="20" />
-      <p class="text-lg text-gray-200">
+      <p class="text-sm text-gray-200">
         {{ currentUptime }}
       </p>
     </div>

@@ -27,7 +27,7 @@ const props = defineProps<{
           "
         ></div>
       </div>
-      <span class="capitalize">{{ props.status?.status }}</span>
+      <span class="capitalize">{{ props.status?.status || "offline" }}</span>
     </div>
   </div>
 </template>

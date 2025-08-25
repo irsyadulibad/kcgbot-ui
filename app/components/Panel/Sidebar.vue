@@ -66,15 +66,6 @@ const items = ref<NavigationMenuItem[][]>([
       icon: "tabler:align-box-left-bottom-filled",
       to: "/handlers/banwords",
     },
-    {
-      label: "Management",
-      type: "label",
-    },
-    {
-      label: "Users",
-      icon: "tabler:user",
-      to: "/management/users",
-    },
   ],
 ]);
 </script>

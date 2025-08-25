@@ -21,7 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="box-border space-y-4">
+  <div class="box-border w-full space-y-4">
     <div>
       <h2 class="text-sm font-medium text-gray-400">Overview</h2>
       <h1 class="text-2xl font-bold">Dashboard</h1>
@@ -37,14 +37,14 @@ onMounted(async () => {
     <div
       class="bg-muted box-border w-full space-y-4 rounded-md border border-gray-500 p-5"
     >
-      <div class="flex items-center justify-between">
+      <div class="flex w-full items-center justify-between">
         <h2>Realtime Logs</h2>
         <UButton>Clear log</UButton>
       </div>
       <div
-        class="bg-default flex h-full w-full flex-col justify-start overflow-auto rounded-md border border-gray-500 p-4 lg:min-h-[50rem]"
+        class="bg-default flex h-full flex-col justify-start overflow-x-auto rounded-md border border-gray-500 p-4 lg:min-h-[50rem]"
       >
-        <div v-for="(item, index) in logs" :key="index">
+        <div v-for="(item, index) in logs" c :key="index">
           <div
             :class="
               item.type === 'INFO'
@@ -55,17 +55,17 @@ onMounted(async () => {
                     ? 'border-yellow-500 text-yellow-500 lg:bg-yellow-500/10'
                     : 'border-green-500 text-green-500 lg:bg-green-500/10'
             "
-            class="mb-2 box-border flex w-full items-center justify-start gap-4 border-l-4 px-3 py-1 lg:px-2"
+            class="mb-2 box-border flex items-center justify-start gap-4 border-l-4 px-3 py-1 lg:px-2"
           >
-            <span class="text-nowrap text-gray-300">
+            <span class="text-gray-300">
               {{ item.createdAt }}
             </span>
             <span> LOG </span>
-            <span class="text-nowrap"> [{{ item.type }}] </span>
-            <span class="uppercase">
+            <span class="text-nowrap lg:text-wrap"> [{{ item.type }}] </span>
+            <span class="text-nowrap uppercase lg:text-wrap">
               <b> {{ item.context }}</b>
             </span>
-            <span class="text-nowrap">{{ item.content }}</span>
+            <span class="text-nowrap lg:text-wrap">{{ item.content }}</span>
           </div>
         </div>
       </div>

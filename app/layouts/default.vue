@@ -5,12 +5,10 @@ const toggle = ref(false);
 const toggleSidebar = () => {
   toggle.value = !toggle.value;
 };
-
-
 </script>
 
 <template>
-  <main class="box-border flex h-screen w-full overflow-y-auto">
+  <main class="box-border flex h-screen w-full overflow-hidden">
     <PanelSidebar
       :open="toggle"
       @focusout="toggleSidebar"
@@ -21,7 +19,7 @@ const toggleSidebar = () => {
         @toggleSidebar="toggleSidebar"
         v-if="route.name !== 'auth-login'"
       />
-      <div class="box-border px-2 py-4 lg:px-6">
+      <div class="box-border w-full overflow-y-auto p-4">
         <slot />
       </div>
     </div>
