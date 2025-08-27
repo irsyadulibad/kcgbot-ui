@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import type { Log } from "@/types/log";
 
-const { fetch } = useApi();
+const { fetch, onSuccess } = useApi<Log[]>();
 const { subscribe } = useSocket("logger");
 
 const logs = ref<Log[]>([]);
 
 const loggerFetch = async () => {
-  const res = await fetch<Log[]>("/logs");
-  logs.value = res?.data ?? [];
+  await fetch("/logs");
 };
+
+onSuccess((res) => {
+  logs.value = res?.data ?? [];
+});
 
 subscribe("log", async () => {
   await loggerFetch();
@@ -44,7 +47,7 @@ onMounted(async () => {
       <div
         class="bg-default flex h-full flex-col justify-start overflow-x-auto rounded-md border border-gray-500 p-4 lg:min-h-[50rem]"
       >
-        <div v-for="(item, index) in logs" c :key="index">
+        <div v-for="(item, index) in logs" :key="index">
           <div
             :class="
               item.type === 'INFO'

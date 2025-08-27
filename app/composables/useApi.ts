@@ -1,51 +1,70 @@
 import type { NitroFetchOptions } from "nitropack";
 import type { ApiResponse } from "~/types/api";
 
-export function useApi() {
+export function useApi<T>() {
+  const toast = useToast();
+  const pending = ref(false);
+  const isError = ref(false);
+  const { loggedIn, session } = useUserSession();
   const {
     public: { apiBaseUrl },
   } = useRuntimeConfig();
 
-  const pending = ref(false);
-  const isError = ref(false);
-  const { loggedIn, session } = useUserSession();
+  let successHandler: (data: ApiResponse<T>) => void = (
+    data: ApiResponse<T>
+  ) => {
+    toast.add({
+      title: "Success",
+      description: data.message || "Operation completed successfully.",
+      color: "success",
+    });
+  };
 
-  async function fetch<T>(
-    url: string,
-    options?: NitroFetchOptions<string>
-  ): Promise<ApiResponse<T> | undefined> {
-    const headers: Record<string, string> = {};
+  let errorHandler: (error: unknown) => void = (error: unknown) => {
+    const apiError = error as { data: ApiResponse<T> };
 
-    if (loggedIn.value && session.value?.token)
-      headers.Authorization = `Bearer ${session.value.token}`;
+    toast.add({
+      title: "Error",
+      description: apiError.data.message || "An error occurred.",
+      color: "error",
+    });
+  };
 
+  const onSuccess = (callback: (data: ApiResponse<T>) => void) => {
+    successHandler = callback;
+  };
+
+  const onError = (callback: (error: unknown) => void) => {
+    errorHandler = callback;
+  };
+
+  const fetch = async (url: string, options?: NitroFetchOptions<string>) => {
+    isError.value = false;
     pending.value = true;
 
-    try {
-      const response = await $fetch<ApiResponse<T>>(`${apiBaseUrl}${url}`, {
+    if (loggedIn.value) {
+      options = {
         ...options,
         headers: {
-          ...headers,
           ...options?.headers,
+          Authorization: `Bearer ${session.value?.token}`,
         },
-      });
+      };
+    }
 
-      return response;
+    try {
+      const response = await $fetch<ApiResponse<T>>(
+        `${apiBaseUrl}${url}`,
+        options
+      );
+      successHandler(response);
     } catch (error) {
-      const errResponse = error as { data: ApiResponse<T> };
-
-      useToast().add({
-        title: "Error Fetching Data",
-        description:
-          errResponse.data.message || "An error occurred while fetching data.",
-        color: "error",
-      });
-
       isError.value = true;
+      errorHandler(error);
     } finally {
       pending.value = false;
     }
-  }
+  };
 
-  return { fetch, pending };
+  return { fetch, onError, onSuccess, pending, isError };
 }

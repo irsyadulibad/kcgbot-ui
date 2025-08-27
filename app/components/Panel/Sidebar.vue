@@ -6,16 +6,15 @@ defineProps<{
   open: boolean;
 }>();
 
-const { fetch } = useApi();
+const { fetch, onSuccess } = useApi<Status>();
 const status = ref<Status>();
 
-const fetchStats = async () => {
-  const res = await fetch<Status>("/bot/status");
+onSuccess((res) => {
   status.value = res?.data ?? undefined;
-};
+});
 
 onMounted(async () => {
-  await fetchStats();
+  fetch("/bot/status");
 });
 
 const items = ref<NavigationMenuItem[][]>([
