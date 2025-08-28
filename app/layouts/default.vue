@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/store/auth";
+import { onClickOutside } from "@vueuse/core";
+import { useTemplateRef } from "vue";
+
+const target = useTemplateRef<HTMLElement>("sidebar");
+
+onClickOutside(target, (event) => {
+  event.preventDefault();
+  toggle.value = false;
+});
 
 const { fetchProfile } = useAuthStore();
 const route = useRoute();
@@ -18,15 +27,15 @@ onMounted(() => {
   <main class="box-border flex h-screen w-full overflow-hidden">
     <PanelSidebar
       :open="toggle"
-      @focusout="toggleSidebar"
+      ref="sidebar"
       v-if="route.name !== 'auth-login'"
     />
-    <div class="box-border w-full flex-1">
+    <div class="box-border w-full flex-1 overflow-y-auto">
       <PanelNavbar
         @toggleSidebar="toggleSidebar"
         v-if="route.name !== 'auth-login'"
       />
-      <div class="box-border w-full overflow-y-auto p-4">
+      <div class="box-border w-full p-4">
         <slot />
       </div>
     </div>

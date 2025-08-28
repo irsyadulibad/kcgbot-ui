@@ -32,8 +32,6 @@ export const useAuthStore = defineStore("auth", {
           }
         );
         this.profile = response.data;
-
-        console.log(this.profile);
       } catch (error) {
         const errResponse = error as { status?: number; statusCode?: number };
 

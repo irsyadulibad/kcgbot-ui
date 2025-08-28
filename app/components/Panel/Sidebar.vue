@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
+
 import type { Status } from "@/types/status";
 
 defineProps<{
@@ -71,6 +72,7 @@ const items = ref<NavigationMenuItem[][]>([
 
 <template>
   <aside
+    ref="sidebar"
     :class="open ? 'block' : 'hidden lg:block'"
     class="bg-muted fixed top-0 z-[999] h-full w-64 border-r p-4 lg:sticky dark:border-gray-700"
   >

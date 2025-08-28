@@ -21,11 +21,13 @@ const setTab = (tab: string) => {
 </script>
 <template>
   <div
-    class="container mx-auto mt-20 flex w-full flex-row justify-center gap-10"
+    class="container mx-auto flex w-full flex-col justify-center gap-10 pt-10 lg:flex-row"
   >
-    <div class="top-0 w-[20%] flex-auto">
+    <div class="top-0 w-full flex-auto lg:w-[20%]">
       <p class="mb-3 text-lg font-bold">Account</p>
-      <div class="flex flex-col gap-y-2 rounded-md">
+      <div
+        class="flex flex-row rounded-md border border-gray-800 lg:flex-col lg:gap-y-2 lg:border-none"
+      >
         <button
           v-for="tab in tabs"
           :key="tab.name"
@@ -33,10 +35,10 @@ const setTab = (tab: string) => {
           :class="{
             'bg-gray-800 text-green-300':
               activeTab.toLowerCase() === tab.name.toLowerCase(),
-            'text-gray-600 hover:bg-gray-800 hover:text-gray-400':
+            'text-gray-600 hover:bg-gray-900 hover:text-gray-400':
               activeTab.toLowerCase() !== tab.name.toLowerCase(),
           }"
-          class="flex cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-2 transition-all"
+          class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md p-3 transition-all lg:justify-start"
         >
           <Icon :name="tab.icon" size="24" />
           <span>{{ tab.name }}</span>
