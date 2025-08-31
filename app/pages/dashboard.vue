@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Log } from "@/types/log";
+import { toast } from "vue-sonner";
 
 const { fetch, onSuccess } = useApi<Log[]>();
 const { subscribe } = useSocket("logger");
@@ -58,7 +59,7 @@ onMounted(async () => {
                     ? 'border-yellow-500 text-yellow-500 lg:bg-yellow-500/10'
                     : 'border-green-500 text-green-500 lg:bg-green-500/10'
             "
-            class="mb-2 box-border flex items-center justify-start gap-4 border-l-4 px-3 py-1 lg:px-2"
+            class="mb-2 box-border flex transform items-center justify-start gap-4 border-l-4 px-3 py-1 transition-all hover:translate-x-2 lg:px-2"
           >
             <span class="text-gray-300">
               {{ item.createdAt }}

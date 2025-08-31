@@ -24,14 +24,28 @@ const data = ref<Banword[]>([
       <h1 class="text-2xl font-bold">Banwords</h1>
     </div>
     <div>
-      <UCard class="bg-muted">
-        <UTable
-          sticky
-          :data="data"
-          :columns="columns"
-          class="max-h-[312px] flex-1"
-        />
-      </UCard>
+      <div class="mb-4 flex items-center gap-x-2">
+        <input type="text" class="rounded-md border border-gray-700/80 p-2" />
+        <UButton>Add</UButton>
+      </div>
+      <div
+        class="bg-muted inline-flex w-full gap-2 rounded-md border border-gray-700/80 p-5"
+      >
+        <div
+          v-for="item in data"
+          :key="item.no"
+          class="rounded-md bg-gray-700/80 px-2 py-2"
+        >
+          <div class="flex items-center justify-center gap-5">
+            <div>
+              <p>{{ item.word }}</p>
+            </div>
+            <button class="flex items-center text-red-500 hover:text-red-600">
+              <Icon name="mdi:times" class="text-2xl" />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

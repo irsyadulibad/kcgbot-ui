@@ -31,7 +31,7 @@ const profileItems = ref<DropdownMenuItem[][]>([
     </UButton>
 
     <div class="flex">
-      <UDropdownMenu :items="profileItems">
+      <UDropdownMenu :items="profileItems" class="cursor-pointer p-2">
         <UAvatar size="lg" alt="KCG" />
       </UDropdownMenu>
     </div>
